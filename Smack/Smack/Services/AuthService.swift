@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 class AuthService {
     static let instance = AuthService()
@@ -56,4 +57,45 @@ class AuthService {
             }
         }
     }
+    
+    func loginUser(email: String, password: String, completion: @escaping CompletionHandler) {
+        let lowerCaseEmail = email.lowercased()
+        let body: [String: Any] = ["email": lowerCaseEmail,
+                                   "password": password]
+        
+        Alamofire.request(URL_LOGIN, method: .post, parameters: body, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response) in
+            if response.result.error == nil {
+                if let json = response.result.value as? Dictionary<String, Any> {
+                    print("Response.value: \(json)")
+                    print("Response.data: \(response.data)")
+                    // The old/standard way of parsing JSON
+//                    if let email = json["user"] as? String {
+//                        print("Response.value.user: \(email)")
+//                        self.userEmail = email
+//                    }
+//                    if let token = json["token"] as? String {
+//                        print("Response.value.token: \(token)")
+//                        self.authToken = token
+//                    }
+                    
+                    // Using SwiftyJSON
+                       // it didn't work this way without exception handling
+//                    guard let data = response.data else { return }
+//                    let json = JSON(data: data)
+                    
+                    guard let data = response.result.value else { return }
+                    let json = JSON(data)
+                    self.userEmail = json["user"].stringValue
+                    self.authToken = json["token"].stringValue
+                }
+                self.isLoggedIn = true
+                completion(true)
+            } else {
+                completion(false)
+                print(response.result.error as Any)
+            }
+        }
+        
+    }
+    
 }
