@@ -49,11 +49,11 @@ class AuthService {
                                    "password": password]
         Alamofire.request(URL_REGISTER, method: .post, parameters: body, encoding: JSONEncoding.default, headers: header).responseString { (response) in
             if response.result.error == nil {
-                completion(true)
                 print("Url: \(URL_REGISTER), parameters: \(body), headers: \(header)")
+                completion(true)
             } else {
-                completion(false)
                 debugPrint(response.result.error as Any)
+                completion(false)
             }
         }
     }
@@ -96,6 +96,47 @@ class AuthService {
             }
         }
         
+    }
+    
+    func createUser(name: String, email: String, avatarName: String, avatarColor: String, completion: @escaping CompletionHandler) {
+        print("At the start of createUser...")
+        let lowerCaseEmail = email.lowercased()
+        let body: [String: Any] = [
+            "name:": name,
+            "email": lowerCaseEmail,
+            "avatarName": avatarName,
+            "avatarColor": avatarColor
+        ]
+        
+        let header = [
+            "Authorization": "Bearer \(AuthService.instance.authToken)",
+            "Content-Type": "application/json; charset=utf-8"
+        ]
+        print("Calling Alamofire.request with the following parameters: \(URL_USER_ADD, body, header)")
+        Alamofire.request(URL_USER_ADD, method: .post, parameters: body, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+            if response.result.error == nil {
+                print("ResponseJSON has no errors.")
+//                guard let data = response.result.value else { return }
+                guard let data = response.data else { return }
+                print("data is \(data)")
+//                try? JSON(data: $0) - As used in the JSON definition
+                guard let json = try? JSON(data: data) else { return }
+                print("json is \(json)")
+                let id = json["_id"].stringValue
+                let color = json["avatarColor"].stringValue
+                let avatarName = json["avatarName"].stringValue
+                let email = json["email"].stringValue
+                let name = json["name"].stringValue
+                
+                print("Calling setUserData...")
+                UserDataService.instance.setUserData(id: id, color: color, avatarName: avatarName, email: email, name: name)
+                completion (true)
+            } else {
+                print("Error in responseJSON")
+                completion(false)
+                debugPrint(response.result.error as Any)
+            }
+        }
     }
     
 }
