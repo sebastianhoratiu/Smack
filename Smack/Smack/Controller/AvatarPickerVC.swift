@@ -14,6 +14,9 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    //MARK: Variables
+    var avatarType: AvatarType = .dark
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -22,6 +25,7 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "avatarCell", for: indexPath) as? AvatarCell {
+            cell.configureCell(index: indexPath.item, type: avatarType)
             return cell
         }
         return AvatarCell()
@@ -35,9 +39,47 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         return 28
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var numberOfColumns: CGFloat = 3
+        if UIScreen.main.bounds.width > 320 {
+            numberOfColumns = 4
+        }
+        
+        let padding: CGFloat = 2 * 20 // corresponding to the insets on both sides
+        let spaceBetweenCells: CGFloat = 10
+        
+        // We will substract all the spaces from the width of the collection view
+        // and then devide the remaining width to the desired number of columns
+        // and this will give use the width of each cell
+        let cellDimension =
+            (
+                collectionView.bounds.width
+                - padding
+                - ((numberOfColumns - 1) * spaceBetweenCells) // total space between cells
+            )
+            / numberOfColumns
+        
+        return CGSize(width: cellDimension, height: cellDimension)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if avatarType == .dark {
+            UserDataService.instance.setAvatarName(avatarName: "dark\(indexPath.item)")
+        } else {
+            UserDataService.instance.setAvatarName(avatarName: "light\(indexPath.item)")
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
 
     //MARK: Actions
     @IBAction func segmentControlChanged(_ sender: Any) {
+        if segmentedControl.selectedSegmentIndex == 0 {
+            avatarType = .dark
+        } else {
+            avatarType = .light
+        }
+        collectionView.reloadData()
     }
     @IBAction func backPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
