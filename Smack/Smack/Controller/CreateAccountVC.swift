@@ -15,28 +15,40 @@ class CreateAccountVC: UIViewController {
     @IBOutlet weak var emailTxt: UITextField!
     @IBOutlet weak var passTxt: UITextField!
     @IBOutlet weak var userImg: UIImageView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     
     //MARK: Variables
     var avatarName = "profileDefault"
     var avatarColor = "[0.5, 0.5, 0.5, 1]"
+    var bgColor: UIColor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        tap.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(tap)
+        
+        setupView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if UserDataService.instance.avatarName != "" {
             userImg.image = UIImage(named: UserDataService.instance.avatarName)
             avatarName = UserDataService.instance.avatarName
+            
+            // Set a default background color for when a light avatar is selected, so that it is better visible
+            if avatarName.contains("light") && bgColor == nil {
+                userImg.backgroundColor = UIColor.lightGray
+            } else if avatarName.contains("dark") && bgColor == nil{
+                userImg.backgroundColor = UIColor.clear
+            }
         }
     }
     
     @IBAction func createAccntPressed(_ sender: Any) {
+        spinner.isHidden = false
+        spinner.startAnimating()
+        
         guard let name = usernameTxt.text, usernameTxt.text != "" else { return }
         guard let email = emailTxt.text, emailTxt.text != "" else { return }
         guard let pass = passTxt.text, passTxt.text != "" else { return }
@@ -52,10 +64,18 @@ class CreateAccountVC: UIViewController {
                         print("Calling createUser with the following parameters: \(name, email, self.avatarName, self.avatarColor)")
                         AuthService.instance.createUser(name: name, email: email, avatarName: self.avatarName, avatarColor: self.avatarColor, completion: { (success) in
                             if success {
+                                self.spinner.isHidden = true
+                                self.spinner.stopAnimating()
+                                
                                 print("createUser - Success!")
                                 print(UserDataService.instance.name, UserDataService.instance.avatarName)
                                 self.performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
+                                
+                                NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
                             } else {
+                                self.spinner.isHidden = true
+                                self.spinner.stopAnimating()
+                                
                                 print("createUser ran into some error?")
                                 print("The description of success is: \(success.description)")
                             }
@@ -71,10 +91,35 @@ class CreateAccountVC: UIViewController {
         performSegue(withIdentifier: TO_AVATAR_PICKER, sender: nil)
     }
     @IBAction func pickBGColorPressed(_ sender: Any) {
+        let r = CGFloat(arc4random_uniform(255)) / 255
+        let g = CGFloat(arc4random_uniform(255)) / 255
+        let b = CGFloat(arc4random_uniform(255)) / 255
+        
+        bgColor = UIColor(red: r, green: g, blue: b, alpha: 1)
+        
+        // Animate the transition from one background color to another
+        UIView.animate(withDuration: 0.2) {
+            self.userImg.backgroundColor = self.bgColor
+        }
+        
     }
     
     @IBAction func closeBtnPressed(sender: Any) {
         performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
+    }
+    
+    func setupView() {
+        spinner.isHidden = true
+        
+        usernameTxt.attributedPlaceholder = NSAttributedString(string: "username", attributes: [NSAttributedStringKey.foregroundColor : smackPurplePlaceholder])
+        emailTxt.attributedPlaceholder = NSAttributedString(string: "email", attributes: [NSAttributedStringKey.foregroundColor : smackPurplePlaceholder])
+        passTxt.attributedPlaceholder = NSAttributedString(string: "password", attributes: [NSAttributedStringKey.foregroundColor : smackPurplePlaceholder])
+        
+        // Very similar implementation in lecture 77 but, the below one I found on Medium seems better
+        // Be able to dismiss the keyboard when you tap anywhere in the view
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }
 
 }
