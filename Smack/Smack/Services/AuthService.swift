@@ -102,31 +102,36 @@ class AuthService {
         print("At the start of createUser...")
         let lowerCaseEmail = email.lowercased()
         let body: [String: Any] = [
-            "name:": name,
+            "name": name,
             "email": lowerCaseEmail,
             "avatarName": avatarName,
             "avatarColor": avatarColor
         ]
         
+        print("body is: \(body)")
+        
         let header = [
             "Authorization": "Bearer \(AuthService.instance.authToken)",
             "Content-Type": "application/json; charset=utf-8"
         ]
-        print("Calling Alamofire.request with the following parameters: \(URL_USER_ADD, body, header)")
+        print("Calling Alamofire.request with the following parameters: \n\t url: \(URL_USER_ADD), \n\t body: \(body), \n\t header: \(header)")
         Alamofire.request(URL_USER_ADD, method: .post, parameters: body, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
             if response.result.error == nil {
                 print("ResponseJSON has no errors.")
+                print("Response is: \(response.result.value)")
 //                guard let data = response.result.value else { return }
                 guard let data = response.data else { return }
                 print("data is \(data)")
 //                try? JSON(data: $0) - As used in the JSON definition
-                guard let json = try? JSON(data: data) else { return }
+//                guard let json = try? JSON(data: data) else { return }
+                let json = JSON(data)
                 print("json is \(json)")
                 let id = json["_id"].stringValue
                 let color = json["avatarColor"].stringValue
                 let avatarName = json["avatarName"].stringValue
                 let email = json["email"].stringValue
                 let name = json["name"].stringValue
+                
                 
                 print("Calling setUserData...")
                 UserDataService.instance.setUserData(id: id, color: color, avatarName: avatarName, email: email, name: name)

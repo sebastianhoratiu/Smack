@@ -96,6 +96,11 @@ class CreateAccountVC: UIViewController {
         let b = CGFloat(arc4random_uniform(255)) / 255
         
         bgColor = UIColor(red: r, green: g, blue: b, alpha: 1)
+        //It seems this is done in a very complicated way.
+        //Why don't we just set avatarColor to be of type UIColor
+        //and just pass the value of bgColor to it.
+        //Just a question I have, I don't know if this would actually work.
+        avatarColor = "[\(r), \(g), \(b), 1]"
         
         // Animate the transition from one background color to another
         UIView.animate(withDuration: 0.2) {
