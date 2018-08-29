@@ -132,6 +132,8 @@ class AuthService {
     }
     
     func findUserByEmail(completion: @escaping CompletionHandler) {
+        print("Making the Alamofire request to URL: \(URL_USER_BY_EMAIL)\(userEmail)")
+        print("\t header is: \(BEARER_HEADER)")
         Alamofire.request("\(URL_USER_BY_EMAIL)\(userEmail)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
             if response.result.error == nil {
                 print("ResponseJSON has no errors.")

@@ -272,6 +272,9 @@
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginPressed:" destination="OrE-I4-Ly1" eventType="touchUpInside" id="QAA-j4-JC8"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDZ-Xt-PKs">
                                 <rect key="frame" x="62.5" y="338" width="250" height="26"/>
@@ -287,6 +290,10 @@
                                     <action selector="createAccntBtnPressed:" destination="OrE-I4-Ly1" eventType="touchUpInside" id="gV2-pZ-hAE"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="eh4-N1-Ecb">
+                                <rect key="frame" x="169" y="249" width="37" height="38"/>
+                                <color key="color" red="0.25882352939999997" green="0.3294117647" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -297,13 +304,19 @@
                             <constraint firstItem="4HZ-FY-ODP" firstAttribute="trailing" secondItem="nQk-eW-CyK" secondAttribute="trailing" constant="16" id="bpu-jK-xxd"/>
                             <constraint firstItem="ZDZ-Xt-PKs" firstAttribute="centerX" secondItem="ONJ-mI-Uog" secondAttribute="centerX" id="flT-j3-lVh"/>
                             <constraint firstItem="nQk-eW-CyK" firstAttribute="top" secondItem="4HZ-FY-ODP" secondAttribute="top" constant="8" id="jZy-cG-m95"/>
+                            <constraint firstItem="eh4-N1-Ecb" firstAttribute="top" secondItem="uzk-ng-WjQ" secondAttribute="bottom" constant="1" id="nme-RB-MnF"/>
+                            <constraint firstItem="eh4-N1-Ecb" firstAttribute="centerX" secondItem="ONJ-mI-Uog" secondAttribute="centerX" id="q1K-PR-Wsp"/>
                             <constraint firstItem="uzk-ng-WjQ" firstAttribute="top" secondItem="vBP-Jc-Koh" secondAttribute="bottom" constant="40" id="tdp-sd-Twr"/>
                             <constraint firstItem="hKE-Io-FTK" firstAttribute="centerX" secondItem="ONJ-mI-Uog" secondAttribute="centerX" id="ua3-v6-Bzj"/>
+                            <constraint firstItem="hKE-Io-FTK" firstAttribute="top" secondItem="eh4-N1-Ecb" secondAttribute="bottom" constant="1" id="v0X-J4-yUF"/>
                             <constraint firstItem="vBP-Jc-Koh" firstAttribute="top" secondItem="4HZ-FY-ODP" secondAttribute="top" constant="60" id="yg0-HZ-pwN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4HZ-FY-ODP"/>
                     </view>
                     <connections>
+                        <outlet property="passwordTxt" destination="wp2-w2-eyH" id="WyC-ba-R7a"/>
+                        <outlet property="spinner" destination="eh4-N1-Ecb" id="kde-gl-AoN"/>
+                        <outlet property="usernameTxt" destination="CgM-W7-HAv" id="WEj-sR-82h"/>
                         <segue destination="lYM-ob-HsV" kind="show" identifier="toCreateAccount" id="riw-wr-QAI"/>
                     </connections>
                 </viewController>
