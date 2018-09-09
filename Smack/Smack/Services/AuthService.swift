@@ -65,30 +65,30 @@ class AuthService {
         
         Alamofire.request(URL_LOGIN, method: .post, parameters: body, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response) in
             if response.result.error == nil {
-                if let json = response.result.value as? Dictionary<String, Any> {
-                    print("Response.value: \(json)")
-                    print("Response.data: \(response.data)")
-                    // The old/standard way of parsing JSON
-//                    if let email = json["user"] as? String {
-//                        print("Response.value.user: \(email)")
-//                        self.userEmail = email
-//                    }
-//                    if let token = json["token"] as? String {
-//                        print("Response.value.token: \(token)")
-//                        self.authToken = token
-//                    }
-                    
-                    // Using SwiftyJSON
-                       // it didn't work this way without exception handling
-//                    guard let data = response.data else { return }
-//                    let json = JSON(data: data)
-                    
-                    guard let data = response.result.value else { return }
-                    let json = JSON(data)
-                    self.userEmail = json["user"].stringValue
-                    self.authToken = json["token"].stringValue
-                }
+                //                The old/standard way of parsing JSON
+                //                if let json = response.result.value as? Dictionary<String, Any> {
+                //                    print("Response.value: \(json)")
+                //                    print("Response.data: \(response.data)")
+                //                    if let email = json["user"] as? String {
+                //                        print("Response.value.user: \(email)")
+                //                        self.userEmail = email
+                //                    }
+                //                    if let token = json["token"] as? String {
+                //                        print("Response.value.token: \(token)")
+                //                        self.authToken = token
+                //                    }
+                
+                // Using SwiftyJSON
+                // it didn't work this way without exception handling
+                //                    guard let data = response.data else { return }
+                //                    let json = JSON(data: data)
+                //                }
+                guard let data = response.result.value else { return }
+                let json = JSON(data)
+                self.userEmail = json["user"].stringValue
+                self.authToken = json["token"].stringValue
                 self.isLoggedIn = true
+                
                 completion(true)
             } else {
                 completion(false)
@@ -110,31 +110,18 @@ class AuthService {
         
         print("body is: \(body)")
         
-        let header = [
-            "Authorization": "Bearer \(AuthService.instance.authToken)",
-            "Content-Type": "application/json; charset=utf-8"
-        ]
-        print("Calling Alamofire.request with the following parameters: \n\t url: \(URL_USER_ADD), \n\t body: \(body), \n\t header: \(header)")
-        Alamofire.request(URL_USER_ADD, method: .post, parameters: body, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+        print("Calling Alamofire.request with the following parameters: \n\t url: \(URL_USER_ADD), \n\t body: \(body), \n\t header: \(BEARER_HEADER)")
+        Alamofire.request(URL_USER_ADD, method: .post, parameters: body, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
             if response.result.error == nil {
                 print("ResponseJSON has no errors.")
-                print("Response is: \(response.result.value)")
-//                guard let data = response.result.value else { return }
+                print("Response is: \(String(describing: response.result.value))")
+                //                guard let data = response.result.value else { return }
                 guard let data = response.data else { return }
                 print("data is \(data)")
-//                try? JSON(data: $0) - As used in the JSON definition
-//                guard let json = try? JSON(data: data) else { return }
-                let json = JSON(data)
-                print("json is \(json)")
-                let id = json["_id"].stringValue
-                let color = json["avatarColor"].stringValue
-                let avatarName = json["avatarName"].stringValue
-                let email = json["email"].stringValue
-                let name = json["name"].stringValue
+                //                try? JSON(data: $0) - As used in the JSON definition
+                //                guard let json = try? JSON(data: data) else { return }
+                self.setUserInfo(data: data)
                 
-                
-                print("Calling setUserData...")
-                UserDataService.instance.setUserData(id: id, color: color, avatarName: avatarName, email: email, name: name)
                 completion (true)
             } else {
                 print("Error in responseJSON")
@@ -144,4 +131,39 @@ class AuthService {
         }
     }
     
+    func findUserByEmail(completion: @escaping CompletionHandler) {
+        print("Making the Alamofire request to URL: \(URL_USER_BY_EMAIL)\(userEmail)")
+        print("\t header is: \(BEARER_HEADER)")
+        Alamofire.request("\(URL_USER_BY_EMAIL)\(userEmail)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
+            if response.result.error == nil {
+                print("ResponseJSON has no errors.")
+                print("Response is: \(String(describing: response.result.value))")
+                //                guard let data = response.result.value else { return }
+                guard let data = response.data else { return }
+                print("data is \(data)")
+                //                try? JSON(data: $0) - As used in the JSON definition
+                //                guard let json = try? JSON(data: data) else { return }
+                self.setUserInfo(data: data)
+                
+                completion (true)
+            } else {
+                print("Error in responseJSON")
+                completion(false)
+                debugPrint(response.result.error as Any)
+            }
+        }
+    }
+    
+    func setUserInfo(data: Data) {
+        let json = JSON(data)
+        print("json is \(json)")
+        let id = json["_id"].stringValue
+        let color = json["avatarColor"].stringValue
+        let avatarName = json["avatarName"].stringValue
+        let email = json["email"].stringValue
+        let name = json["name"].stringValue
+        
+        print("Calling setUserData...")
+        UserDataService.instance.setUserData(id: id, color: color, avatarName: avatarName, email: email, name: name)
+    }
 }
