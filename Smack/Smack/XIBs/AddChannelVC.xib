@@ -126,7 +126,7 @@
                 <constraint firstItem="wrL-M2-NyW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="FHK-Cp-5lx"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WQM-dh-CVv" secondAttribute="trailing" id="FZm-sd-a4p"/>
                 <constraint firstItem="WQM-dh-CVv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="If3-AY-4Xx"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="WQM-dh-CVv" secondAttribute="bottom" id="ZuY-2L-x7l"/>
+                <constraint firstAttribute="bottom" secondItem="WQM-dh-CVv" secondAttribute="bottom" id="ZuY-2L-x7l"/>
                 <constraint firstItem="wrL-M2-NyW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="xVa-fE-lvl"/>
                 <constraint firstItem="WQM-dh-CVv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="yXS-Q2-iey"/>
             </constraints>
