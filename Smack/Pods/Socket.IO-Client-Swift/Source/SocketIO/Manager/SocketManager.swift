@@ -43,6 +43,8 @@ import Foundation
 /// To disconnect a socket and remove it from the manager, either call `SocketIOClient.disconnect()` on the socket,
 /// or call one of the `disconnectSocket` methods on this class.
 ///
+/// **NOTE**: The manager is not thread/queue safe, all interaction with the manager should be done on the `handleQueue`
+///
 open class SocketManager : NSObject, SocketManagerSpec, SocketParsable, SocketDataBufferable, ConfigSettable {
     private static let logType = "SocketManager"
 
@@ -167,6 +169,9 @@ open class SocketManager : NSObject, SocketManagerSpec, SocketParsable, SocketDa
 
         engine?.engineQueue.sync {
             self.engine?.client = nil
+
+            // Close old engine so it will not leak because of URLSession if in polling mode
+            self.engine?.disconnect(reason: "Adding new engine")
         }
 
         engine = SocketEngine(client: self, url: socketURL, config: config)
@@ -387,7 +392,7 @@ open class SocketManager : NSObject, SocketManagerSpec, SocketParsable, SocketDa
 
     private func _parseEngineMessage(_ msg: String) {
         guard let packet = parseSocketMessage(msg) else { return }
-        guard packet.type != .binaryAck && packet.type != .binaryEvent else {
+        guard !packet.type.isBinary else {
             waitingPackets.append(packet)
 
             return
