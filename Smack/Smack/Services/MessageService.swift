@@ -40,7 +40,7 @@ class MessageService {
                     //                }
                 }
                 print("These are all the available channels: \(self.channels)")
-                
+                NotificationCenter.default.post(name: NOTIF_CHANNELS_LOADED, object: nil)
                 completion(true)
             } else {
                 completion(false)
