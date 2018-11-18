@@ -76,8 +76,14 @@ class ChatVC: UIViewController {
                     if success {
                         self.messageTxtBox.text = ""
                     self.messageTxtBox.resignFirstResponder()
-                    } 
+                    } else {
+                        let alert = self.buildAlertOk(alertTitle: "Send Message", alertMessage: "An error occured while sending the message, please try again!")
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 })
+        } else {
+            let alert = buildAlertOk(alertTitle: "Login", alertMessage: "Please login and then try to send this message again!")
+            present(alert, animated: true, completion: nil)
         }
     }
     
@@ -99,6 +105,14 @@ class ChatVC: UIViewController {
         MessageService.instance.findAllMessagesForChannel(channelId: channelId) { (success) in
             
         }
+    }
+    
+    func buildAlertOk(alertTitle: String, alertMessage: String) -> UIAlertController {
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        return alert
     }
 
 }
