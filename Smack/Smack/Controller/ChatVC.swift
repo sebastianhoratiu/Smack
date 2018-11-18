@@ -13,12 +13,15 @@ class ChatVC: UIViewController {
     //MARK: Outlets
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var channelNameLbl: UILabel!
-    
-    
+    @IBOutlet weak var messageTxtBox: UITextField!
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        view.bindToKeyboard()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        view.addGestureRecognizer(tap)
         
         menuBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
         
@@ -52,10 +55,36 @@ class ChatVC: UIViewController {
         updateWithChannel()
     }
     
+    @objc func handleTap() {
+        view.endEditing(true)
+        print("handleTap was called")
+    }
+    
+    
     func updateWithChannel() {
         let channelName = MessageService.instance.selectedChannel?.channelTitle ?? ""
         channelNameLbl.text = "#\(channelName)"
         getMessages()
+    }
+    
+    @IBAction func sendMsgPressed(_ sender: Any) {
+        if AuthService.instance.isLoggedIn {
+            guard let messageBody = messageTxtBox.text else {return}
+            guard let channelId = MessageService.instance.selectedChannel?.id else { return }
+            
+                SocketService.instance.addMessage(messageBody: messageBody, userId: UserDataService.instance.id, channelId: channelId, completion: { (success) in
+                    if success {
+                        self.messageTxtBox.text = ""
+                    self.messageTxtBox.resignFirstResponder()
+                    } else {
+                        let alert = self.buildAlertOk(alertTitle: "Send Message", alertMessage: "An error occured while sending the message, please try again!")
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                })
+        } else {
+            let alert = buildAlertOk(alertTitle: "Login", alertMessage: "Please login and then try to send this message again!")
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     func onLoginGetMessages() {
@@ -76,6 +105,14 @@ class ChatVC: UIViewController {
         MessageService.instance.findAllMessagesForChannel(channelId: channelId) { (success) in
             
         }
+    }
+    
+    func buildAlertOk(alertTitle: String, alertMessage: String) -> UIAlertController {
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        return alert
     }
 
 }
