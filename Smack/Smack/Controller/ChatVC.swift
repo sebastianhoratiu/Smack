@@ -23,8 +23,9 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         // Automatic row hight, to be able to render long messages
-        tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
+        
         
         view.bindToKeyboard()
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
