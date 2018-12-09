@@ -64,6 +64,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             //            channelNameLbl.text = "Smack"
         } else {
             channelNameLbl.text = "Please log in"
+            tableView.reloadData()
         }
     }
     
