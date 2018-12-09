@@ -15,6 +15,10 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var channelNameLbl: UILabel!
     @IBOutlet weak var messageTxtBox: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var sendBtn: UIButton!
+    
+    //MARK: Variables
+    var isTyping = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         
+        sendBtn.isHidden = true
         
         view.bindToKeyboard()
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
@@ -83,6 +88,19 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         channelNameLbl.text = "#\(channelName)"
         getMessages()
     }
+    
+    @IBAction func messageBoxEditing(_ sender: Any) {
+        if messageTxtBox.text == "" {
+            isTyping = false
+            sendBtn.isHidden = true
+        } else {
+            if isTyping == false {
+                isTyping = true
+            }
+            sendBtn.isHidden = false
+        }
+    }
+    
     
     @IBAction func sendMsgPressed(_ sender: Any) {
         if AuthService.instance.isLoggedIn {
