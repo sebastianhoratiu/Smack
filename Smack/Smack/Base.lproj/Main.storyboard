@@ -178,6 +178,7 @@
                         <outlet property="messageTxtBox" destination="Za5-fx-lll" id="hik-lr-DZI"/>
                         <outlet property="sendBtn" destination="KjF-5l-LKM" id="NrT-wi-erG"/>
                         <outlet property="tableView" destination="ePX-oN-Sn1" id="zdY-Bh-NCs"/>
+                        <outlet property="typingUsersLbl" destination="789-uH-f60" id="oJA-cD-WLH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uoy-lX-rTT" userLabel="First Responder" sceneMemberID="firstResponder"/>
