@@ -23,6 +23,13 @@ class ProfileVC: UIViewController {
     }
 
     @IBAction func updateProfilePressed(_ sender: Any) {
+        if AuthService.instance.isLoggedIn {
+            let updateProfileVC = UpdateProfileVC()
+            updateProfileVC.modalPresentationStyle = .custom
+            present(updateProfileVC, animated: true, completion: nil)
+        } else {
+            performSegue(withIdentifier: TO_LOGIN, sender: nil)
+        }
     }
     
     @IBAction func closeModalPressed(_ sender: Any) {
