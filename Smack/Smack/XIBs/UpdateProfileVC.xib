@@ -11,6 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpdateProfileVC" customModule="Smack" customModuleProvider="target">
             <connections>
+                <outlet property="emailTxt" destination="HY9-Qt-Wgh" id="KgF-WT-R3g"/>
+                <outlet property="passTxt" destination="vz5-fz-o6O" id="bbE-sS-Y6N"/>
+                <outlet property="spinner" destination="lFX-sT-ome" id="AAR-xM-qlL"/>
+                <outlet property="userImg" destination="Hnk-6H-tst" id="8M8-4V-Fmq"/>
+                <outlet property="usernameTxt" destination="ZsH-VK-ioZ" id="ONx-rO-6uh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -137,11 +142,17 @@
                         <color key="titleColor" red="0.35686274509999999" green="0.62352941179999999" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="lFX-sT-ome">
+                    <rect key="frame" x="169" y="263" width="37" height="38"/>
+                    <color key="color" red="0.25882352939999997" green="0.3294117647" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Hnk-6H-tst" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="0BH-kl-pwr"/>
+                <constraint firstItem="lFX-sT-ome" firstAttribute="top" secondItem="4a6-34-O5T" secondAttribute="bottom" constant="1" id="20W-LL-CN8"/>
                 <constraint firstItem="4a6-34-O5T" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="4ia-Cd-DMT"/>
+                <constraint firstItem="lFX-sT-ome" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="4uP-WY-k1t"/>
                 <constraint firstItem="WRu-fc-WdP" firstAttribute="top" secondItem="Hnk-6H-tst" secondAttribute="top" id="7Kb-w4-dRG"/>
                 <constraint firstItem="WRu-fc-WdP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="I6c-Pr-hJX"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3Er-0C-nNH" secondAttribute="bottom" constant="20" id="LC2-dU-rjY"/>
@@ -155,6 +166,7 @@
                 <constraint firstItem="iiP-Eq-09u" firstAttribute="top" secondItem="WRu-fc-WdP" secondAttribute="bottom" constant="4" id="nxw-q9-u3w"/>
                 <constraint firstItem="iiP-Eq-09u" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="pd8-TY-Syy"/>
                 <constraint firstItem="3Er-0C-nNH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sIr-2W-6bU"/>
+                <constraint firstItem="Hnk-6H-tst" firstAttribute="top" secondItem="lFX-sT-ome" secondAttribute="bottom" constant="1" id="y2a-Ay-nr7"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
