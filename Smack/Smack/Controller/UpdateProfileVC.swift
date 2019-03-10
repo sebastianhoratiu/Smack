@@ -16,6 +16,7 @@ class UpdateProfileVC: UIViewController {
     @IBOutlet weak var passTxt: UITextField!
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var updateProfileBtn: RoundedButton!
     
     
     //MARK: Variables
@@ -39,7 +40,9 @@ class UpdateProfileVC: UIViewController {
         emailTxt.text = UserDataService.instance.email
         userImg.image = UIImage(named: UserDataService.instance.avatarName)
         userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
-
+        spinner.isHidden = true
+        updateProfileBtn.isUserInteractionEnabled = false
+        updateProfileBtn.alpha = 0.5
     }
 
 }

@@ -14,6 +14,7 @@
                 <outlet property="emailTxt" destination="HY9-Qt-Wgh" id="KgF-WT-R3g"/>
                 <outlet property="passTxt" destination="vz5-fz-o6O" id="bbE-sS-Y6N"/>
                 <outlet property="spinner" destination="lFX-sT-ome" id="AAR-xM-qlL"/>
+                <outlet property="updateProfileBtn" destination="3Er-0C-nNH" id="uxn-0V-FVD"/>
                 <outlet property="userImg" destination="Hnk-6H-tst" id="8M8-4V-Fmq"/>
                 <outlet property="usernameTxt" destination="ZsH-VK-ioZ" id="ONx-rO-6uh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
