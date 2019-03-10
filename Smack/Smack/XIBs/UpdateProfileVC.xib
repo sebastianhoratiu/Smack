@@ -12,7 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpdateProfileVC" customModule="Smack" customModuleProvider="target">
             <connections>
                 <outlet property="emailTxt" destination="HY9-Qt-Wgh" id="KgF-WT-R3g"/>
-                <outlet property="passTxt" destination="vz5-fz-o6O" id="bbE-sS-Y6N"/>
                 <outlet property="spinner" destination="lFX-sT-ome" id="AAR-xM-qlL"/>
                 <outlet property="updateProfileBtn" destination="3Er-0C-nNH" id="uxn-0V-FVD"/>
                 <outlet property="userImg" destination="Hnk-6H-tst" id="8M8-4V-Fmq"/>
@@ -53,6 +52,11 @@
                             <color key="textColor" red="0.25882352939999997" green="0.3294117647" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <action selector="profileValuesDidEndEditing:" destination="-1" eventType="editingDidEnd" id="BCN-hv-v7k"/>
+                                <action selector="usernameChanged:" destination="-1" eventType="editingChanged" id="b1K-Me-wBj"/>
+                                <action selector="usernameValueChanged:" destination="-1" eventType="valueChanged" id="pVJ-sd-Aj5"/>
+                            </connections>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kBb-eu-5JX">
                             <rect key="frame" x="0.0" y="35" width="250" height="2"/>
@@ -70,6 +74,9 @@
                             <color key="textColor" red="0.25882352939999997" green="0.3294117647" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits" textContentType="email"/>
+                            <connections>
+                                <action selector="profileValuesDidEndEditing:" destination="-1" eventType="editingDidEnd" id="vkg-qm-y3a"/>
+                            </connections>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jry-WI-MhY">
                             <rect key="frame" x="0.0" y="86" width="250" height="2"/>

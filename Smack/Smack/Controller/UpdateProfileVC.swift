@@ -35,14 +35,48 @@ class UpdateProfileVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func usernameChanged(_ sender: Any) {
+        print("***** \n username - Editing Changed! \n*****")
+    }
+    
+    @IBAction func profileValuesDidEndEditing(_ sender: Any) {
+        print("***** \n username - Editing Did End! \n*****")
+        if usernameTxt.text != UserDataService.instance.name || emailTxt.text != UserDataService.instance.email {
+            enableUpdateProfileBtn()
+            print("***** \n UpdateProfileBtn should be enabled! \n*****")
+        } else {
+            disableUpdateProfileBtn()
+            print("***** \n UpdateProfileBtn should be disabled \n*****")
+        }
+    }
+    
+    @IBAction func usernameValueChanged(_ sender: Any) {
+        print("***** \n username - Value Changed! \n*****")
+    }
+    
+    
+    fileprivate func disableUpdateProfileBtn() {
+        if updateProfileBtn.isUserInteractionEnabled == true {
+            updateProfileBtn.isUserInteractionEnabled = false
+            updateProfileBtn.alpha = 0.5
+        }
+        
+    }
+    
+    fileprivate func enableUpdateProfileBtn() {
+        if updateProfileBtn.isUserInteractionEnabled == false {
+            updateProfileBtn.isUserInteractionEnabled = true
+            updateProfileBtn.alpha = 1
+        }
+    }
+    
     func setupView() {
         usernameTxt.text = UserDataService.instance.name
         emailTxt.text = UserDataService.instance.email
         userImg.image = UIImage(named: UserDataService.instance.avatarName)
         userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
         spinner.isHidden = true
-        updateProfileBtn.isUserInteractionEnabled = false
-        updateProfileBtn.alpha = 0.5
+        disableUpdateProfileBtn()
     }
 
 }
