@@ -77,6 +77,11 @@ class UpdateProfileVC: UIViewController {
         userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
         spinner.isHidden = true
         disableUpdateProfileBtn()
+        
+        // Be able to dismiss the keyboard when you tap anywhere in the view
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }
 
 }
