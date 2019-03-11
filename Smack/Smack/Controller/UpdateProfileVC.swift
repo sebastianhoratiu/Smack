@@ -13,7 +13,6 @@ class UpdateProfileVC: UIViewController {
     //MARK: Outlets
     @IBOutlet weak var usernameTxt: UITextField!
     @IBOutlet weak var emailTxt: UITextField!
-    @IBOutlet weak var passTxt: UITextField!
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var updateProfileBtn: RoundedButton!

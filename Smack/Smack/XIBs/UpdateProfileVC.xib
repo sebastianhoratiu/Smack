@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUI-Jh-hVG">
-                    <rect key="frame" x="122.5" y="60" width="130" height="23"/>
+                    <rect key="frame" x="122.5" y="120" width="130" height="23"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
                     <color key="textColor" red="0.25882352939999997" green="0.3294117647" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="4a6-34-O5T">
-                    <rect key="frame" x="62.5" y="123" width="250" height="139"/>
+                    <rect key="frame" x="62.5" y="223" width="250" height="88"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZsH-VK-ioZ">
                             <rect key="frame" x="0.0" y="0.0" width="250" height="21"/>
@@ -86,23 +86,6 @@
                                 <constraint firstAttribute="width" constant="250" id="l8U-TO-4j2"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vz5-fz-o6O">
-                            <rect key="frame" x="0.0" y="102" width="250" height="21"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="250" id="XgH-gd-klH"/>
-                            </constraints>
-                            <color key="textColor" red="0.25882352939999997" green="0.3294117647" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
-                        </textField>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NBq-N1-C96">
-                            <rect key="frame" x="0.0" y="137" width="250" height="2"/>
-                            <color key="backgroundColor" red="0.35686274509999999" green="0.62352941179999999" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="2" id="KsT-NI-G08"/>
-                                <constraint firstAttribute="width" constant="250" id="N2j-yI-SgH"/>
-                            </constraints>
-                        </view>
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Er-0C-nNH" customClass="RoundedButton" customModule="Smack" customModuleProvider="target">
@@ -123,14 +106,14 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileDefault" translatesAutoresizingMaskIntoConstraints="NO" id="Hnk-6H-tst" userLabel="User Img" customClass="CircleImage" customModule="Smack" customModuleProvider="target">
-                    <rect key="frame" x="137.5" y="302" width="100" height="100"/>
+                    <rect key="frame" x="137.5" y="351" width="100" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="x0S-Ys-d5b"/>
                         <constraint firstAttribute="width" constant="100" id="y4r-fu-RCO"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WRu-fc-WdP">
-                    <rect key="frame" x="137.5" y="302" width="100" height="130"/>
+                    <rect key="frame" x="137.5" y="351" width="100" height="130"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="130" id="9FV-lQ-aC5"/>
                     </constraints>
@@ -140,7 +123,7 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iiP-Eq-09u">
-                    <rect key="frame" x="62.5" y="436" width="250" height="26"/>
+                    <rect key="frame" x="62.5" y="485" width="250" height="26"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="26" id="VyY-iF-Mnn"/>
                         <constraint firstAttribute="width" constant="250" id="y0Z-L2-gnH"/>
@@ -151,7 +134,7 @@
                     </state>
                 </button>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="lFX-sT-ome">
-                    <rect key="frame" x="169" y="263" width="37" height="38"/>
+                    <rect key="frame" x="169" y="312" width="37" height="38"/>
                     <color key="color" red="0.25882352939999997" green="0.3294117647" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </activityIndicatorView>
             </subviews>
@@ -166,8 +149,8 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3Er-0C-nNH" secondAttribute="bottom" constant="20" id="LC2-dU-rjY"/>
                 <constraint firstItem="hUI-Jh-hVG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="LwS-IP-iyg"/>
                 <constraint firstItem="CEZ-BS-WP1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="MIA-IU-e7D"/>
-                <constraint firstItem="4a6-34-O5T" firstAttribute="top" secondItem="hUI-Jh-hVG" secondAttribute="bottom" constant="40" id="PKT-jI-98U"/>
-                <constraint firstItem="hUI-Jh-hVG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="T36-jw-D4q"/>
+                <constraint firstItem="4a6-34-O5T" firstAttribute="top" secondItem="hUI-Jh-hVG" secondAttribute="bottom" constant="80" id="PKT-jI-98U"/>
+                <constraint firstItem="hUI-Jh-hVG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="T36-jw-D4q"/>
                 <constraint firstItem="Hnk-6H-tst" firstAttribute="top" secondItem="4a6-34-O5T" secondAttribute="bottom" constant="40" id="XOK-od-W6O"/>
                 <constraint firstItem="WRu-fc-WdP" firstAttribute="width" secondItem="Hnk-6H-tst" secondAttribute="width" id="esa-cy-rDh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="CEZ-BS-WP1" secondAttribute="trailing" constant="16" id="kjn-hO-LCi"/>
