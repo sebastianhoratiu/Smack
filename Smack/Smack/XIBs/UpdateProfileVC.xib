@@ -121,6 +121,9 @@
                     <state key="normal" title="Choose avatar">
                         <color key="titleColor" red="0.35686274509999999" green="0.62352941179999999" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <connections>
+                        <action selector="pickAvatarPressed:" destination="-1" eventType="touchUpInside" id="P4H-wz-TkN"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iiP-Eq-09u">
                     <rect key="frame" x="62.5" y="485" width="250" height="26"/>

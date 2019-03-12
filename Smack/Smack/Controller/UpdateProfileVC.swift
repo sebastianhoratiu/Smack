@@ -29,6 +29,14 @@ class UpdateProfileVC: UIViewController {
         // Do any additional setup after loading the view.
         setupView()
     }
+    
+    @IBAction func pickAvatarPressed(_ sender: Any) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let avatarPicker = mainStoryboard.instantiateViewController(withIdentifier: "AvatarPicker")
+        avatarPicker.modalPresentationStyle = .custom
+        present(avatarPicker, animated: true, completion: nil)
+    }
+    
 
     @IBAction func closeBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
