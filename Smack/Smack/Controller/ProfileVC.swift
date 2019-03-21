@@ -26,6 +26,7 @@ class ProfileVC: UIViewController {
         if AuthService.instance.isLoggedIn {
             let updateProfileVC = UpdateProfileVC()
             updateProfileVC.modalPresentationStyle = .custom
+            updateProfileVC.title = "updateProfileVC"
             present(updateProfileVC, animated: true, completion: nil)
         } else {
             performSegue(withIdentifier: TO_LOGIN, sender: nil)

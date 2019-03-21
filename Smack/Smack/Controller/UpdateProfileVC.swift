@@ -17,12 +17,11 @@ class UpdateProfileVC: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var updateProfileBtn: RoundedButton!
     
-    
     //MARK: Variables
     var avatarName = "profileDefault"
     var avatarColor = "[0.5, 0.5, 0.5, 1]"
     var bgColor: UIColor?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
