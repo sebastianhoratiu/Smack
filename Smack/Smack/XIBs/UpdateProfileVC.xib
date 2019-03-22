@@ -135,6 +135,9 @@
                     <state key="normal" title="Generate background color">
                         <color key="titleColor" red="0.35686274509999999" green="0.62352941179999999" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <connections>
+                        <action selector="generateBGColoPressed:" destination="-1" eventType="touchUpInside" id="RoE-q6-hIm"/>
+                    </connections>
                 </button>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="lFX-sT-ome">
                     <rect key="frame" x="169" y="312" width="37" height="38"/>
