@@ -64,17 +64,26 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let updateProfileVC = presentingViewController as! UpdateProfileVC? else { return }
         if avatarType == .dark {
             UserDataService.instance.setAvatarName(avatarName: "dark\(indexPath.item)")
-            updateProfileVC.userImg.image = UIImage(named: UserDataService.instance.avatarName)
+            setUpdateProfileVC(UserDataService.instance.avatarName)
             print("***** Avatar name: \(UserDataService.instance.avatarName)) *****")
         } else {
             UserDataService.instance.setAvatarName(avatarName: "light\(indexPath.item)")
-            updateProfileVC.userImg.image = UIImage(named: UserDataService.instance.avatarName)
+            setUpdateProfileVC(UserDataService.instance.avatarName)
             print("***** Avatar name: \(UserDataService.instance.avatarName)) *****")
         }
         dismiss(animated: true, completion: nil)
+    }
+    
+    fileprivate func setUpdateProfileVC(_ newAvatarName: String) {
+        guard let updateProfileVC = presentingViewController as! UpdateProfileVC? else { return }
+        updateProfileVC.userImg.image = UIImage(named: newAvatarName)
+        if UIImage(named: newAvatarName) != updateProfileVC.originalUserImg {
+            updateProfileVC.enableUpdateProfileBtn()
+        } else {
+            updateProfileVC.disableUpdateProfileBtn()
+        }
     }
     
 

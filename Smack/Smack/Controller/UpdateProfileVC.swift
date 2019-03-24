@@ -21,12 +21,18 @@ class UpdateProfileVC: UIViewController {
     var avatarName = "profileDefault"
     var avatarColor = "[0.5, 0.5, 0.5, 1]"
     var bgColor: UIColor?
+    var originalUserImg: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        print("***** Update profile VC: view did load \n*****")
         setupView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("***** Update profile VC: view did appear \n*****")
     }
     
     @IBAction func pickAvatarPressed(_ sender: Any) {
@@ -54,8 +60,6 @@ class UpdateProfileVC: UIViewController {
         }
     }
     
-    
-
     @IBAction func closeBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -79,8 +83,7 @@ class UpdateProfileVC: UIViewController {
         print("***** \n username - Value Changed! \n*****")
     }
     
-    
-    fileprivate func disableUpdateProfileBtn() {
+    func disableUpdateProfileBtn() {
         if updateProfileBtn.isUserInteractionEnabled == true {
             updateProfileBtn.isUserInteractionEnabled = false
             updateProfileBtn.alpha = 0.5
@@ -88,7 +91,7 @@ class UpdateProfileVC: UIViewController {
         
     }
     
-    fileprivate func enableUpdateProfileBtn() {
+    func enableUpdateProfileBtn() {
         if updateProfileBtn.isUserInteractionEnabled == false {
             updateProfileBtn.isUserInteractionEnabled = true
             updateProfileBtn.alpha = 1
@@ -98,7 +101,8 @@ class UpdateProfileVC: UIViewController {
     func setupView() {
         usernameTxt.text = UserDataService.instance.name
         emailTxt.text = UserDataService.instance.email
-        userImg.image = UIImage(named: UserDataService.instance.avatarName)
+        originalUserImg = UIImage(named: UserDataService.instance.avatarName)
+        userImg.image = originalUserImg
         userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
         spinner.isHidden = true
         disableUpdateProfileBtn()
