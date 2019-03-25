@@ -137,6 +137,7 @@
                     </state>
                     <connections>
                         <action selector="generateBGColoPressed:" destination="-1" eventType="touchUpInside" id="RoE-q6-hIm"/>
+                        <action selector="profileValuesDidEndEditing:" destination="-1" eventType="touchUpInside" id="hX0-Tm-NWM"/>
                     </connections>
                 </button>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="lFX-sT-ome">

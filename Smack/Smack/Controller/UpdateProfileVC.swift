@@ -19,7 +19,7 @@ class UpdateProfileVC: UIViewController {
     
     //MARK: Variables
     var avatarName = "profileDefault"
-    var avatarColor = "[0.5, 0.5, 0.5, 1]"
+    var avatarColor = DEFAULT_AVATAR_COLOR
     var bgColor: UIColor?
     var originalUserImg: UIImage?
     
@@ -70,7 +70,7 @@ class UpdateProfileVC: UIViewController {
     
     @IBAction func profileValuesDidEndEditing(_ sender: Any) {
         print("***** \n username - Editing Did End! \n*****")
-        if usernameTxt.text != UserDataService.instance.name || emailTxt.text != UserDataService.instance.email {
+        if usernameTxt.text != UserDataService.instance.name || emailTxt.text != UserDataService.instance.email || userImg.image != originalUserImg || avatarColor != DEFAULT_AVATAR_COLOR {
             enableUpdateProfileBtn()
             print("***** \n UpdateProfileBtn should be enabled! \n*****")
         } else {

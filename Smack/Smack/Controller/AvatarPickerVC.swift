@@ -79,11 +79,7 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     fileprivate func setUpdateProfileVC(_ newAvatarName: String) {
         guard let updateProfileVC = presentingViewController as! UpdateProfileVC? else { return }
         updateProfileVC.userImg.image = UIImage(named: newAvatarName)
-        if UIImage(named: newAvatarName) != updateProfileVC.originalUserImg {
-            updateProfileVC.enableUpdateProfileBtn()
-        } else {
-            updateProfileVC.disableUpdateProfileBtn()
-        }
+        updateProfileVC.profileValuesDidEndEditing(self)
     }
     
 
