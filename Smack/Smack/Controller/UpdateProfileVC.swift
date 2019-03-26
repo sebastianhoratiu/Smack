@@ -102,6 +102,7 @@ class UpdateProfileVC: UIViewController {
         usernameTxt.text = UserDataService.instance.name
         emailTxt.text = UserDataService.instance.email
         originalUserImg = UIImage(named: UserDataService.instance.avatarName)
+        print("setupView - originalUserImg: \(originalUserImg)")
         userImg.image = originalUserImg
         userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
         spinner.isHidden = true
