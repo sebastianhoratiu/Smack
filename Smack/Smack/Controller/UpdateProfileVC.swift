@@ -60,6 +60,21 @@ class UpdateProfileVC: UIViewController {
         }
     }
     
+    @IBAction func updateProfilePressed(_ sender: Any) {
+        guard let name = usernameTxt.text, usernameTxt.text != "" else { return }
+        guard let email = emailTxt.text, emailTxt.text != "" else { return }
+        
+        AuthService.instance.updateUserById(name: name, email: email, avatarName: avatarName, avatarColor: avatarColor, userId: UserDataService.instance.id) { (success) in
+            if success {
+                NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                print("udpateUser ran into some error?")
+                print("The description of success is: \(success.description)")
+            }
+        }
+    }
+    
     @IBAction func closeBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -70,7 +85,7 @@ class UpdateProfileVC: UIViewController {
     
     @IBAction func profileValuesDidEndEditing(_ sender: Any) {
         print("***** \n username - Editing Did End! \n*****")
-        if usernameTxt.text != UserDataService.instance.name || emailTxt.text != UserDataService.instance.email || userImg.image != originalUserImg || avatarColor != DEFAULT_AVATAR_COLOR {
+        if usernameTxt.text != UserDataService.instance.name || emailTxt.text != UserDataService.instance.email || userImg.image != originalUserImg || avatarColor != UserDataService.instance.avatarColor {
             enableUpdateProfileBtn()
             print("***** \n UpdateProfileBtn should be enabled! \n*****")
         } else {
@@ -101,10 +116,15 @@ class UpdateProfileVC: UIViewController {
     func setupView() {
         usernameTxt.text = UserDataService.instance.name
         emailTxt.text = UserDataService.instance.email
-        originalUserImg = UIImage(named: UserDataService.instance.avatarName)
+        
+        avatarName = UserDataService.instance.avatarName
+        originalUserImg = UIImage(named: avatarName)
         print("setupView - originalUserImg: \(originalUserImg)")
         userImg.image = originalUserImg
-        userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
+        
+        avatarColor = UserDataService.instance.avatarColor
+        userImg.backgroundColor = UserDataService.instance.returnUIColor(components: avatarColor)
+        
         spinner.isHidden = true
         disableUpdateProfileBtn()
         
