@@ -66,7 +66,11 @@ class UpdateProfileVC: UIViewController {
         
         AuthService.instance.updateUserById(name: name, email: email, avatarName: avatarName, avatarColor: avatarColor, userId: UserDataService.instance.id) { (success) in
             if success {
-                NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+                    AuthService.instance.findUserById { (success) in
+                        if success {
+                            NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+                        }
+                    }
                 self.dismiss(animated: true, completion: nil)
             } else {
                 print("udpateUser ran into some error?")

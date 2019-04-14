@@ -19,6 +19,7 @@ let URL_USER_BY_EMAIL = "\(BASE_URL)/user/byEmail/"
 let URL_GET_CHANNELS = "\(BASE_URL)channel"
 let URL_GET_MESSAGES = "\(BASE_URL)message/byChannel/"
 let URL_UPDATE_USER_BY_ID = "\(BASE_URL)user/"
+let URL_USER_BY_ID = "\(BASE_URL)user/"
 
 //MARK: Segues
 let TO_LOGIN = "toLogin"
