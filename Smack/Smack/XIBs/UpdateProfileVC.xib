@@ -54,8 +54,6 @@
                             <textInputTraits key="textInputTraits"/>
                             <connections>
                                 <action selector="profileValuesDidEndEditing:" destination="-1" eventType="editingDidEnd" id="BCN-hv-v7k"/>
-                                <action selector="usernameChanged:" destination="-1" eventType="editingChanged" id="b1K-Me-wBj"/>
-                                <action selector="usernameValueChanged:" destination="-1" eventType="valueChanged" id="pVJ-sd-Aj5"/>
                             </connections>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kBb-eu-5JX">

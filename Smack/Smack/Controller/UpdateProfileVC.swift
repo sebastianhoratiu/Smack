@@ -83,10 +83,6 @@ class UpdateProfileVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func usernameChanged(_ sender: Any) {
-        print("***** \n username - Editing Changed! \n*****")
-    }
-    
     @IBAction func profileValuesDidEndEditing(_ sender: Any) {
         print("***** \n username - Editing Did End! \n*****")
         if usernameTxt.text != UserDataService.instance.name || emailTxt.text != UserDataService.instance.email || userImg.image != originalUserImg || avatarColor != UserDataService.instance.avatarColor {
@@ -96,10 +92,6 @@ class UpdateProfileVC: UIViewController {
             disableUpdateProfileBtn()
             print("***** \n UpdateProfileBtn should be disabled \n*****")
         }
-    }
-    
-    @IBAction func usernameValueChanged(_ sender: Any) {
-        print("***** \n username - Value Changed! \n*****")
     }
     
     func disableUpdateProfileBtn() {
