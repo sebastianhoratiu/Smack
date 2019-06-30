@@ -49,10 +49,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if newMessage.channelId == MessageService.instance.selectedChannel?.id && AuthService.instance.isLoggedIn {
                 MessageService.instance.messages.append(newMessage)
                 self.tableView.reloadData()
-                if MessageService.instance.messages.count > 0 {
-                    let endIndex = IndexPath(row: MessageService.instance.messages.count - 1, section: 0)
-                    self.tableView.scrollToRow(at: endIndex, at: .bottom, animated: false)
-                }
+                self.scrollToBottom()
             }
         }
         
@@ -177,6 +174,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         MessageService.instance.findAllMessagesForChannel(channelId: channelId) { (success) in
             if success {
                 self.tableView.reloadData()
+                self.scrollToBottom()
             }
         }
     }
@@ -209,4 +207,10 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return MessageService.instance.messages.count
     }
     
+    fileprivate func scrollToBottom() {
+        if MessageService.instance.messages.count > 0 {
+            let endIndex = IndexPath(row: MessageService.instance.messages.count - 1, section: 0)
+            self.tableView.scrollToRow(at: endIndex, at: .bottom, animated: false)
+        }
+    }
 }
