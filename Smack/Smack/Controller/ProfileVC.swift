@@ -23,6 +23,10 @@ class ProfileVC: UIViewController {
     }
     
     @IBAction func updateProfilePressed(_ sender: Any) {
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let createAccountVC = mainStoryBoard.instantiateViewController(withIdentifier: "CreateAccount")
+        createAccountVC.modalPresentationStyle = .custom
+        present(createAccountVC, animated: true, completion: nil)
     }
     
     @IBAction func closeModalPressed(_ sender: Any) {
