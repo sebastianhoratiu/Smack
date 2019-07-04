@@ -11,17 +11,26 @@ import UIKit
 class CreateAccountVC: UIViewController {
     
     //MARK: Outlets
+    @IBOutlet weak var titleTxt: UILabel!
     @IBOutlet weak var usernameTxt: UITextField!
     @IBOutlet weak var emailTxt: UITextField!
     @IBOutlet weak var passTxt: UITextField!
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var createAccountBtn: RoundedButton!
     
     
     //MARK: Variables
     var avatarName = "profileDefault"
     var avatarColor = "[0.5, 0.5, 0.5, 1]"
     var bgColor: UIColor?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if (presentingViewController as? ProfileVC) != nil {
+            titleTxt.text = "Update Profile"
+            createAccountBtn.setTitle("Update Profile", for: .normal)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
