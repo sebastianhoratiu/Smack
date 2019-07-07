@@ -602,6 +602,7 @@
                     <connections>
                         <outlet property="createAccountBtn" destination="d7o-8d-euL" id="CtC-0S-Chu"/>
                         <outlet property="emailTxt" destination="cab-rb-PIU" id="48S-Xx-1Uz"/>
+                        <outlet property="passLine" destination="gm8-VC-1NP" id="3Ii-Ew-cZw"/>
                         <outlet property="passTxt" destination="fuQ-IK-x3e" id="FOl-wG-gJz"/>
                         <outlet property="spinner" destination="Yxe-A0-h8B" id="gLQ-5d-zcM"/>
                         <outlet property="titleTxt" destination="P8G-sr-3tL" id="Ofi-Pa-dmQ"/>

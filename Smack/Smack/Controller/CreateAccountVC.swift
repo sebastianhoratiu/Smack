@@ -18,6 +18,8 @@ class CreateAccountVC: UIViewController {
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var createAccountBtn: RoundedButton!
+    @IBOutlet weak var passLine: UIView!
+    
     
     
     //MARK: Variables
@@ -27,8 +29,7 @@ class CreateAccountVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if (presentingViewController as? ProfileVC) != nil {
-            titleTxt.text = "Update Profile"
-            createAccountBtn.setTitle("Update Profile", for: .normal)
+            setupUpdateView()
         }
     }
     
@@ -41,10 +42,10 @@ class CreateAccountVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if UserDataService.instance.avatarName != "" {
+        if UserDataService.instance.avatarName != "" && UserDataService.instance.avatarColor == "" {
             userImg.image = UIImage(named: UserDataService.instance.avatarName)
             avatarName = UserDataService.instance.avatarName
-            
+
             // Set a default background color for when a light avatar is selected, so that it is better visible
             if avatarName.contains("light") && bgColor == nil {
                 userImg.backgroundColor = UIColor.lightGray
@@ -119,7 +120,11 @@ class CreateAccountVC: UIViewController {
     }
     
     @IBAction func closeBtnPressed(sender: Any) {
-        performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
+        if (presentingViewController as? ProfileVC) != nil {
+            dismiss(animated: true, completion: nil)
+        } else {
+            performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
+        }
     }
     
     func setupView() {
@@ -134,6 +139,18 @@ class CreateAccountVC: UIViewController {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+    }
+    
+    func setupUpdateView() {
+        titleTxt.text = "Update Profile"
+        createAccountBtn.setTitle("Update Profile", for: .normal)
+        
+        usernameTxt.text = UserDataService.instance.name
+        emailTxt.text = UserDataService.instance.email
+        userImg.image = UIImage(named: UserDataService.instance.avatarName)
+        userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
+        passTxt.isHidden = true
+        passLine.isHidden = true
     }
 
 }
