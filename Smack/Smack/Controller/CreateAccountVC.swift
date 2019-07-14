@@ -24,36 +24,43 @@ class CreateAccountVC: UIViewController {
     
     //MARK: Variables
     var avatarName = "profileDefault"
-    var avatarColor = "[0.5, 0.5, 0.5, 1]"
+    var avatarColor: String = "[0.5, 0.5, 0.5, 1]"
     var bgColor: UIColor?
     
-    override func viewWillAppear(_ animated: Bool) {
-        if (presentingViewController as? ProfileVC) != nil {
-            setupUpdateView()
-        }
-    }
-    
     override func viewDidLoad() {
+        print("Entering CreateAccountVC - viewDidLoad")
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         setupView()
+        if (presentingViewController as? ProfileVC) != nil {
+            setupUpdateView()
+        }
+        print("Exiting CreateAccountVC - viewDidLoad")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if UserDataService.instance.avatarName != "" && UserDataService.instance.avatarColor == "" {
-            userImg.image = UIImage(named: UserDataService.instance.avatarName)
-            avatarName = UserDataService.instance.avatarName
-
-            // Set a default background color for when a light avatar is selected, so that it is better visible
-            if avatarName.contains("light") && bgColor == nil {
-                userImg.backgroundColor = UIColor.lightGray
-            } else if avatarName.contains("dark") && bgColor == nil{
-                userImg.backgroundColor = UIColor.clear
-            }
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        print("Entering CreateAccountVC - viewWillAppear")
+        
+        print("Exiting CreateAccountVC - viewWillAppear")
     }
+    
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        print("Entering CreateAccountVC - viewDidAppear")
+    //        if UserDataService.instance.avatarName != "" && UserDataService.instance.avatarColor == "" {
+    //            userImg.image = UIImage(named: UserDataService.instance.avatarName)
+    //            avatarName = UserDataService.instance.avatarName
+    //
+    //            // Set a default background color for when a light avatar is selected, so that it is better visible
+    //            if avatarName.contains("light") && bgColor == nil {
+    //                userImg.backgroundColor = UIColor.lightGray
+    //            } else if avatarName.contains("dark") && bgColor == nil{
+    //                userImg.backgroundColor = UIColor.clear
+    //            }
+    //        }
+    //        print("Exiting CreateAccountVC - viewDidAppear")
+    //    }
     
     @IBAction func createAccntPressed(_ sender: Any) {
         spinner.isHidden = false
@@ -100,6 +107,7 @@ class CreateAccountVC: UIViewController {
     @IBAction func pickAvatarPressed(_ sender: Any) {
         performSegue(withIdentifier: TO_AVATAR_PICKER, sender: nil)
     }
+    
     @IBAction func pickBGColorPressed(_ sender: Any) {
         let r = CGFloat(arc4random_uniform(255)) / 255
         let g = CGFloat(arc4random_uniform(255)) / 255
@@ -128,6 +136,7 @@ class CreateAccountVC: UIViewController {
     }
     
     func setupView() {
+        print("Entering CreateAccountVC - setupView")
         spinner.isHidden = true
         
         usernameTxt.attributedPlaceholder = NSAttributedString(string: "username", attributes: [NSAttributedString.Key.foregroundColor : smackPurplePlaceholder])
@@ -139,9 +148,12 @@ class CreateAccountVC: UIViewController {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+        print("Exiting CreateAccountVC - setupView")
     }
     
     func setupUpdateView() {
+        print("Entering CreateAccountVC - setupUpdateView")
+        
         titleTxt.text = "Update Profile"
         createAccountBtn.setTitle("Update Profile", for: .normal)
         
@@ -151,6 +163,8 @@ class CreateAccountVC: UIViewController {
         userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
         passTxt.isHidden = true
         passLine.isHidden = true
+        
+        print("Exiting CreateAccountVC - setupUpdateView")
     }
-
+    
 }
