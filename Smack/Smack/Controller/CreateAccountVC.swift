@@ -26,6 +26,7 @@ class CreateAccountVC: UIViewController {
     var avatarName = "profileDefault"
     var avatarColor: String = "[0.5, 0.5, 0.5, 1]"
     var bgColor: UIColor?
+    var updatingUser = false
     
     override func viewDidLoad() {
         print("Entering CreateAccountVC - viewDidLoad")
@@ -34,9 +35,18 @@ class CreateAccountVC: UIViewController {
         // Do any additional setup after loading the view.
         
         setupView()
-        if (presentingViewController as? ProfileVC) != nil {
+        
+        if (presentingViewController as! ProfileVC?) != nil {
+            updatingUser = true
+        }
+        
+        if updatingUser {
+            print("presentingViewController = ProfileVC")
             setupUpdateView()
         }
+//        if (presentingViewController as? ProfileVC) != nil {
+//            setupUpdateView()
+//        }
         print("Exiting CreateAccountVC - viewDidLoad")
     }
     
@@ -70,40 +80,44 @@ class CreateAccountVC: UIViewController {
         guard let email = emailTxt.text, emailTxt.text != "" else { return }
         guard let pass = passTxt.text, passTxt.text != "" else { return }
         
-        print("Calling registerUser with the following parameters: email = \(email), password = \(pass)")
-        
-        AuthService.instance.registerUser(email: email, password: pass) { (success) in
-            if success {
-                print("registered user")
-                AuthService.instance.loginUser(email: email, password: pass, completion: { (success) in
-                    if success {
-                        print("Logged in user!", "AuthToken: \(AuthService.instance.authToken)")
-                        print("Calling createUser with the following parameters: \(name, email, self.avatarName, self.avatarColor)")
-                        AuthService.instance.createUser(name: name, email: email, avatarName: self.avatarName, avatarColor: self.avatarColor, completion: { (success) in
-                            if success {
-                                self.spinner.isHidden = true
-                                self.spinner.stopAnimating()
-                                
-                                print("createUser - Success!")
-                                print(UserDataService.instance.name, UserDataService.instance.avatarName)
-                                self.performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
-                                
-                                NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
-                            } else {
-                                self.spinner.isHidden = true
-                                self.spinner.stopAnimating()
-                                
-                                print("createUser ran into some error?")
-                                print("The description of success is: \(success.description)")
-                            }
-                        })
-                    }
-                })
-            } else {
-                print("not registered user - error")
+        if updatingUser {
+            
+        } else {
+            print("Calling registerUser with the following parameters: email = \(email), password = \(pass)")
+            AuthService.instance.registerUser(email: email, password: pass) { (success) in
+                if success {
+                    print("registered user")
+                    AuthService.instance.loginUser(email: email, password: pass, completion: { (success) in
+                        if success {
+                            print("Logged in user!", "AuthToken: \(AuthService.instance.authToken)")
+                            print("Calling createUser with the following parameters: \(name, email, self.avatarName, self.avatarColor)")
+                            AuthService.instance.createUser(name: name, email: email, avatarName: self.avatarName, avatarColor: self.avatarColor, completion: { (success) in
+                                if success {
+                                    self.spinner.isHidden = true
+                                    self.spinner.stopAnimating()
+                                    
+                                    print("createUser - Success!")
+                                    print(UserDataService.instance.name, UserDataService.instance.avatarName)
+                                    self.performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
+                                    
+                                    NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+                                } else {
+                                    self.spinner.isHidden = true
+                                    self.spinner.stopAnimating()
+                                    
+                                    print("createUser ran into some error?")
+                                    print("The description of success is: \(success.description)")
+                                }
+                            })
+                        }
+                    })
+                } else {
+                    print("not registered user - error")
+                }
             }
         }
     }
+        
     @IBAction func pickAvatarPressed(_ sender: Any) {
         performSegue(withIdentifier: TO_AVATAR_PICKER, sender: nil)
     }
