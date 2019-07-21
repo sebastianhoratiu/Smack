@@ -67,13 +67,9 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         if avatarType == .dark {
 //            UserDataService.instance.setAvatarName(avatarName: "dark\(indexPath.item)")
             createUpdateProfileVC.userImg.image = UIImage(named: "dark\(indexPath.item)")
-//            createUpdateProfileVC.avatarName = "dark\(indexPath.item)"
-//            createUpdateProfileVC.userImg.backgroundColor = UIColor.clear
         } else {
 //            UserDataService.instance.setAvatarName(avatarName: "light\(indexPath.item)")
             createUpdateProfileVC.userImg.image = UIImage(named: "light\(indexPath.item)")
-//            createUpdateProfileVC.userImg.backgroundColor = UIColor.lightGray
-//            createUpdateProfileVC.avatarName = "light\(indexPath.item)"
         }
         dismiss(animated: true, completion: nil)
     }
