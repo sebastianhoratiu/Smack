@@ -73,16 +73,27 @@ class CreateAccountVC: UIViewController {
     //    }
     
     @IBAction func createAccntPressed(_ sender: Any) {
+        print("Create/Update button pressed")
         spinner.isHidden = false
         spinner.startAnimating()
         
         guard let name = usernameTxt.text, usernameTxt.text != "" else { return }
         guard let email = emailTxt.text, emailTxt.text != "" else { return }
-        guard let pass = passTxt.text, passTxt.text != "" else { return }
         
-        if updatingUser {
-            
+        print("updatingUser = \(updatingUser)")
+        if updatingUser == true {
+            print("Updating user")
+            AuthService.instance.updateUserById(name: name, email: email, avatarName: avatarName, avatarColor: avatarColor, userId: UserDataService.instance.id) { (success) in
+                if success {
+                    NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    print("udpateUser ran into some error?")
+                    print("The description of success is: \(success.description)")
+                }
+            }
         } else {
+            guard let pass = passTxt.text, passTxt.text != "" else { return }
             print("Calling registerUser with the following parameters: email = \(email), password = \(pass)")
             AuthService.instance.registerUser(email: email, password: pass) { (success) in
                 if success {
@@ -175,6 +186,8 @@ class CreateAccountVC: UIViewController {
         emailTxt.text = UserDataService.instance.email
         userImg.image = UIImage(named: UserDataService.instance.avatarName)
         userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
+        avatarName = UserDataService.instance.avatarName
+        avatarColor = UserDataService.instance.avatarColor
         passTxt.isHidden = true
         passLine.isHidden = true
         

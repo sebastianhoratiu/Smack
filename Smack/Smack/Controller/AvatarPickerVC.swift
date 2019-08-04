@@ -64,13 +64,12 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let createUpdateProfileVC = presentingViewController as! CreateAccountVC? else { return }
-        if avatarType == .dark {
 //            UserDataService.instance.setAvatarName(avatarName: "dark\(indexPath.item)")
-            createUpdateProfileVC.userImg.image = UIImage(named: "dark\(indexPath.item)")
-        } else {
-//            UserDataService.instance.setAvatarName(avatarName: "light\(indexPath.item)")
-            createUpdateProfileVC.userImg.image = UIImage(named: "light\(indexPath.item)")
-        }
+        let selectedAvatarName = "\(avatarType)\(indexPath.item)"
+        createUpdateProfileVC.userImg.image = UIImage(named: selectedAvatarName)
+        createUpdateProfileVC.avatarName = selectedAvatarName
+            print("Avatar name = \(selectedAvatarName)")
+//       UserDataService.instance.setAvatarName(avatarName: "light\(indexPath.item)")
         dismiss(animated: true, completion: nil)
     }
     
