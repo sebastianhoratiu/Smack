@@ -85,8 +85,12 @@ class CreateAccountVC: UIViewController {
             print("Updating user")
             AuthService.instance.updateUserById(name: name, email: email, avatarName: avatarName, avatarColor: avatarColor, userId: UserDataService.instance.id) { (success) in
                 if success {
-                    NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
-                    self.dismiss(animated: true, completion: nil)
+                    AuthService.instance.findUserById(completion: { (success) in
+                        if success {
+                            NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    })
                 } else {
                     print("udpateUser ran into some error?")
                     print("The description of success is: \(success.description)")

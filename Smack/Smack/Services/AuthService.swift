@@ -170,15 +170,17 @@ class AuthService {
             if response.result.error == nil {
                 print("ResponseJSON has no errors.")
                 print("Response is: \(String(describing: response.result.value))")
-                //                guard let data = response.result.value else { return }
+                guard let data = response.result.value else { return }
+                let json = JSON(data)
+                let message = json["message"].stringValue
+                
+                print("Message from updateUserById endpoint: \(message)")
                 
                 //                guard let data = response.data else { return }
                 //                print("data is \(data)")
                 //                try? JSON(data: $0) - As used in the JSON definition
                 //                guard let json = try? JSON(data: data) else { return }
                 //                self.setUserInfo(data: data)
-                
-                UserDataService.instance.setUserData(id: userId, color: avatarColor, avatarName: avatarName, email: lowerCaseEmail, name: name)
                 
                 completion (true)
             } else {
@@ -191,6 +193,29 @@ class AuthService {
             //            "email": "girrafe2@email.com",
             //            "name": "Ms. Giraffe",
             //            "__v": 0
+        }
+    }
+    
+    func findUserById(completion: @escaping CompletionHandler) {
+        print("findUserById, making the Alamofire request to URL: \(URL_USER_BY_ID)\(UserDataService.instance.id)")
+        print("\t header is: \(BEARER_HEADER)")
+        Alamofire.request("\(URL_USER_BY_ID)\(UserDataService.instance.id)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
+            if response.result.error == nil {
+                print("\t ResponseJSON has no errors.")
+                print("\t Response is: \(String(describing: response.result.value))")
+                //                guard let data = response.result.value else { return }
+                guard let data = response.data else { return }
+                print("\t data is \(data)")
+                //                try? JSON(data: $0) - As used in the JSON definition
+                //                guard let json = try? JSON(data: data) else { return }
+                self.setUserInfo(data: data)
+                
+                completion (true)
+            } else {
+                print("\t Error in responseJSON")
+                completion(false)
+                debugPrint(response.result.error as Any)
+            }
         }
     }
     
