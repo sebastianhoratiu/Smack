@@ -20,6 +20,8 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
 
         setupView()
+        NotificationCenter.default.addObserver(self, selector: #selector(ProfileVC.userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+
     }
     
     @IBAction func updateProfilePressed(_ sender: Any) {
@@ -59,6 +61,10 @@ class ProfileVC: UIViewController {
     
     @objc func closeTap(_ recognizer: UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func userDataDidChange(_ notif: Notification) {
+        setupView()
     }
     
 }
