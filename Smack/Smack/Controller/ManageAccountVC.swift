@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateAccountVC: UIViewController {
+class ManageAccountVC: UIViewController {
     
     //MARK: Outlets
     @IBOutlet weak var titleTxt: UILabel!
@@ -38,15 +38,10 @@ class CreateAccountVC: UIViewController {
         
         if (presentingViewController as! ProfileVC?) != nil {
             updatingUser = true
-        }
-        
-        if updatingUser {
             print("presentingViewController = ProfileVC")
             setupUpdateView()
         }
-//        if (presentingViewController as? ProfileVC) != nil {
-//            setupUpdateView()
-//        }
+        
         print("Exiting CreateAccountVC - viewDidLoad")
     }
     
@@ -55,22 +50,6 @@ class CreateAccountVC: UIViewController {
         
         print("Exiting CreateAccountVC - viewWillAppear")
     }
-    
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        print("Entering CreateAccountVC - viewDidAppear")
-    //        if UserDataService.instance.avatarName != "" && UserDataService.instance.avatarColor == "" {
-    //            userImg.image = UIImage(named: UserDataService.instance.avatarName)
-    //            avatarName = UserDataService.instance.avatarName
-    //
-    //            // Set a default background color for when a light avatar is selected, so that it is better visible
-    //            if avatarName.contains("light") && bgColor == nil {
-    //                userImg.backgroundColor = UIColor.lightGray
-    //            } else if avatarName.contains("dark") && bgColor == nil{
-    //                userImg.backgroundColor = UIColor.clear
-    //            }
-    //        }
-    //        print("Exiting CreateAccountVC - viewDidAppear")
-    //    }
     
     @IBAction func createAccntPressed(_ sender: Any) {
         print("Create/Update button pressed")
@@ -105,7 +84,7 @@ class CreateAccountVC: UIViewController {
                     AuthService.instance.loginUser(email: email, password: pass, completion: { (success) in
                         if success {
                             print("Logged in user!", "AuthToken: \(AuthService.instance.authToken)")
-                            print("Calling createUser with the following parameters: \(name, email, self.avatarName, self.avatarColor)")
+                            print("Calling createUser with the following parameters: \(name), \(email), \(self.avatarName), \(self.avatarColor)")
                             AuthService.instance.createUser(name: name, email: email, avatarName: self.avatarName, avatarColor: self.avatarColor, completion: { (success) in
                                 if success {
                                     self.spinner.isHidden = true
