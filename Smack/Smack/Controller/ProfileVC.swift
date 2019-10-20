@@ -49,12 +49,6 @@ class ProfileVC: UIViewController {
         profileImg.image = UIImage(named: UserDataService.instance.avatarName)
         profileImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
         
-        //The below implementation, similar to the one in CreateAccountVC does not seem to work here
-//        let tap = UITapGestureRecognizer(target: self.bgView, action: #selector(UIView.resignFirstResponder))
-//        tap.cancelsTouchesInView = false
-//        self.bgView.addGestureRecognizer(tap)
-        
-        //Implementation from the course
         let closeTouch = UITapGestureRecognizer(target: self, action: #selector(self.closeTap(_:)))
         self.bgView.addGestureRecognizer(closeTouch)
     }

@@ -78,11 +78,6 @@ class AuthService {
                 //                        self.authToken = token
                 //                    }
                 
-                // Using SwiftyJSON
-                // it didn't work this way without exception handling
-                //                    guard let data = response.data else { return }
-                //                    let json = JSON(data: data)
-                //                }
                 guard let data = response.result.value else { return }
                 let json = JSON(data)
                 self.userEmail = json["user"].stringValue
@@ -115,11 +110,8 @@ class AuthService {
             if response.result.error == nil {
                 print("ResponseJSON has no errors.")
                 print("Response is: \(String(describing: response.result.value))")
-                //                guard let data = response.result.value else { return }
                 guard let data = response.data else { return }
                 print("data is \(data)")
-                //                try? JSON(data: $0) - As used in the JSON definition
-                //                guard let json = try? JSON(data: data) else { return }
                 self.setUserInfo(data: data)
                 
                 completion (true)
@@ -138,11 +130,8 @@ class AuthService {
             if response.result.error == nil {
                 print("ResponseJSON has no errors.")
                 print("Response is: \(String(describing: response.result.value))")
-                //                guard let data = response.result.value else { return }
                 guard let data = response.data else { return }
                 print("data is \(data)")
-                //                try? JSON(data: $0) - As used in the JSON definition
-                //                guard let json = try? JSON(data: data) else { return }
                 self.setUserInfo(data: data)
                 
                 completion (true)
@@ -176,23 +165,12 @@ class AuthService {
                 
                 print("Message from updateUserById endpoint: \(message)")
                 
-                //                guard let data = response.data else { return }
-                //                print("data is \(data)")
-                //                try? JSON(data: $0) - As used in the JSON definition
-                //                guard let json = try? JSON(data: data) else { return }
-                //                self.setUserInfo(data: data)
-                
                 completion (true)
             } else {
                 print("Error in responseJSON")
                 completion(false)
                 debugPrint(response.result.error as Any)
             }
-            //            "avatarColor": "[0.474509803921569, 0.768627450980392, 0.227450980392157, 1]",
-            //            "avatarName": "light27",
-            //            "email": "girrafe2@email.com",
-            //            "name": "Ms. Giraffe",
-            //            "__v": 0
         }
     }
     
@@ -203,11 +181,9 @@ class AuthService {
             if response.result.error == nil {
                 print("\t ResponseJSON has no errors.")
                 print("\t Response is: \(String(describing: response.result.value))")
-                //                guard let data = response.result.value else { return }
                 guard let data = response.data else { return }
                 print("\t data is \(data)")
-                //                try? JSON(data: $0) - As used in the JSON definition
-                //                guard let json = try? JSON(data: data) else { return }
+                
                 self.setUserInfo(data: data)
                 
                 completion (true)

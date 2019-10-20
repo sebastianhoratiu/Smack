@@ -85,16 +85,11 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
             }
         }
-        //Test MessageService
-        //        MessageService.instance.findAllChannels { (success) in
-        //
-        //        }
     }
     
     @objc func userDataDidChange(_ notif: Notification) {
         if AuthService.instance.isLoggedIn {
             onLoginGetMessages()
-            //            channelNameLbl.text = "Smack"
         } else {
             channelNameLbl.text = "Please log in"
             tableView.reloadData()
