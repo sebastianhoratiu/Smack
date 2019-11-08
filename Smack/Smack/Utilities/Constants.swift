@@ -44,3 +44,5 @@ let smackPurplePlaceholder = #colorLiteral(red: 0.2588235294, green: 0.329411764
 let NOTIF_USER_DATA_DID_CHANGE = Notification.Name("notifUserDataChanged")
 let NOTIF_CHANNELS_LOADED = Notification.Name("channelsLoaded")
 let NOTIF_CHANNEL_SELECTED = Notification.Name("channelSelected")
+let URL_UPDATE_USER_BY_ID = "\(BASE_URL)user/"
+let URL_USER_BY_ID = "\(BASE_URL)user/"

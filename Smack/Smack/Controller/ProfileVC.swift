@@ -20,8 +20,16 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
 
         setupView()
-    }
+        NotificationCenter.default.addObserver(self, selector: #selector(ProfileVC.userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
 
+    }
+    
+    @IBAction func updateProfilePressed(_ sender: Any) {
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let createAccountVC = mainStoryBoard.instantiateViewController(withIdentifier: "CreateAccount")
+        createAccountVC.modalPresentationStyle = .custom
+        present(createAccountVC, animated: true, completion: nil)
+    }
     
     @IBAction func closeModalPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -41,18 +49,16 @@ class ProfileVC: UIViewController {
         profileImg.image = UIImage(named: UserDataService.instance.avatarName)
         profileImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
         
-        //The below implementation, similar to the one in CreateAccountVC does not seem to work here
-//        let tap = UITapGestureRecognizer(target: self.bgView, action: #selector(UIView.resignFirstResponder))
-//        tap.cancelsTouchesInView = false
-//        self.bgView.addGestureRecognizer(tap)
-        
-        //Implementation from the course
         let closeTouch = UITapGestureRecognizer(target: self, action: #selector(self.closeTap(_:)))
         self.bgView.addGestureRecognizer(closeTouch)
     }
     
     @objc func closeTap(_ recognizer: UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func userDataDidChange(_ notif: Notification) {
+        setupView()
     }
     
 }
