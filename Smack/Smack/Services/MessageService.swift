@@ -25,6 +25,9 @@ class MessageService {
             if response.result.error == nil {
                 guard let data = response.data else { return }
                 if let json = JSON(data).array {
+                    //First clean the channes array, so that we don't duplicate them.
+                    //Had this issue before adding this line
+                    self.channels.removeAll()
                     for item in json {
                         let name = item["name"].stringValue
                         let description = item["description"].stringValue
@@ -41,7 +44,7 @@ class MessageService {
                     //                    debugPrint(error)
                     //                }
                 }
-                print("These are all the available channels: \(self.channels)")
+//                print("These are all the available channels: \(self.channels)")
                 NotificationCenter.default.post(name: NOTIF_CHANNELS_LOADED, object: nil)
                 completion(true)
             } else {

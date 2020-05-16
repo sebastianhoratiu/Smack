@@ -21,6 +21,7 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        print("***** Presenting view controller: \(presentingViewController?.title) *****")
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -64,11 +65,31 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if avatarType == .dark {
-            UserDataService.instance.setAvatarName(avatarName: "dark\(indexPath.item)")
+            let selectedAvatar = "dark\(indexPath.item)"
+            if presentingViewController?.title == "updateProfileVC" {
+                setUpdateProfileVC(selectedAvatar)
+            } else {
+                UserDataService.instance.setAvatarName(avatarName: selectedAvatar)
+            }
+            print("***** Avatar name: \(UserDataService.instance.avatarName)) *****")
         } else {
-            UserDataService.instance.setAvatarName(avatarName: "light\(indexPath.item)")
+            let selectedAvatar = "light\(indexPath.item)"
+            if presentingViewController?.title == "updateProfileVC" {
+                setUpdateProfileVC(selectedAvatar)
+            } else {
+                UserDataService.instance.setAvatarName(avatarName: selectedAvatar)
+            }
+            print("***** Avatar name: \(UserDataService.instance.avatarName)) *****")
         }
         dismiss(animated: true, completion: nil)
+    }
+    
+    fileprivate func setUpdateProfileVC(_ newAvatarName: String) {
+        guard let updateProfileVC = presentingViewController as? UpdateProfileVC? else { return }
+        updateProfileVC?.userImg.image = UIImage(named: newAvatarName)
+        updateProfileVC?.avatarName = newAvatarName
+        print("avatarPicker - userImg.image: \(newAvatarName)")
+        updateProfileVC?.profileValuesDidEndEditing(self)
     }
     
 

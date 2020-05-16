@@ -154,6 +154,55 @@ class AuthService {
         }
     }
     
+    func findUserById(completion: @escaping CompletionHandler) {
+        print("findUserById, making the Alamofire request to URL: \(URL_USER_BY_ID)\(UserDataService.instance.id)")
+        print("\t header is: \(BEARER_HEADER)")
+        Alamofire.request("\(URL_USER_BY_ID)\(UserDataService.instance.id)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
+            if response.result.error == nil {
+                print("\t ResponseJSON has no errors.")
+                print("\t Response is: \(String(describing: response.result.value))")
+                //                guard let data = response.result.value else { return }
+                guard let data = response.data else { return }
+                print("\t data is \(data)")
+                //                try? JSON(data: $0) - As used in the JSON definition
+                //                guard let json = try? JSON(data: data) else { return }
+                self.setUserInfo(data: data)
+                
+                completion (true)
+            } else {
+                print("\t Error in responseJSON")
+                completion(false)
+                debugPrint(response.result.error as Any)
+            }
+        }
+    }
+    
+    func updateUserById(name: String, email: String, avatarName: String, avatarColor: String, userId: String, completion: @escaping CompletionHandler) {
+        let lowerCaseEmail = email.lowercased()
+        let body: [String: Any] = [
+            "name": name,
+            "email": lowerCaseEmail,
+            "avatarName": avatarName,
+            "avatarColor": avatarColor
+        ]
+        
+        print("***** updateUserById, body is: \(body)")
+        print("***** updateUserById, Calling Alamofire.request with the following parameters: \n\t url: \(URL_UPDATE_USER_BY_ID), \n\t body: \(body), \n\t header: \(BEARER_HEADER)")
+        
+        Alamofire.request("\(URL_UPDATE_USER_BY_ID)/\(userId)", method: .put, parameters: body, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
+            if response.result.error == nil {
+                print("\t *****ResponseJSON has no errors.")
+                print("\t *****Response is: \(String(describing: response.result.value))")
+                
+                completion (true)
+            } else {
+                print("\t Error in responseJSON")
+                completion(false)
+                debugPrint(response.result.error as Any)
+            }
+        }
+    }
+    
     func setUserInfo(data: Data) {
         let json = JSON(data)
         print("json is \(json)")
